@@ -18,7 +18,7 @@ Nov 26 16:49:15 localhost postfix/sendmail[3195]: fatal: open /etc/postfix/main.
 ```
 Make SELinux permissive so we trigger all violations
 ```
-sudo setenforce 1
+sudo setenforce 0
 ```
 Send another test email. This time it should work, but it will record a number of SE policy exceptions in the audit log. We can send these to audit2allow to create a policy, load the policy and then renable SELinux enforcing.
 ```
