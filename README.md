@@ -16,6 +16,7 @@ Check the maillog `/var/log/maillog` we can see the following error:
 ```
 Nov 26 16:49:15 localhost postfix/sendmail[3195]: fatal: open /etc/postfix/main.cf: Permission denied
 ```
+### Solution ###
 Make SELinux permissive so we trigger all violations
 ```
 sudo setenforce 0
@@ -29,4 +30,8 @@ sudo setenforce 1
 In theory, this should now allow an email to be sent, but if you try again it won't work. Instead we see a new error in the mail log `/var/log/maillog`:
 ```
 Nov 26 17:08:48 localhost postfix/sendmail[3458]: fatal: setrlimit: Permission denied
+```
+This can be fixed with:
+```
+sudo setsebool -P httpd_can_sendmail 1
 ```
